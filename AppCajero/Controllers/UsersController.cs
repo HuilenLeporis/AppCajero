@@ -71,7 +71,7 @@ namespace AppCajero.Controllers
                 if (user != null)
                 {
                     user.Cant += 1; // Sumar uno al campo "cant" del usuario
-                    if (user.Cant == 4)
+                    if (user.Cant >= 4)
                     {
                         user.Bloqueado = true;
                         ViewData["ErrorMessage"] = "Ha ingresado 4 veces una contraseña incorrecta.\n Usuario BLOQUEADO";
@@ -89,14 +89,12 @@ namespace AppCajero.Controllers
         // GET: Users/Operaciones
         public IActionResult Operaciones(User user)
         {
-             // Realiza una consulta para obtener un usuario (puedes personalizar esto según tus necesidades)
             if (user != null)
             {
                 return View(user);
             }
             else
             {
-                // Maneja el caso en el que no se encuentra ningún usuario en la base de datos
                 ViewData["ErrorMessage"] = "No se encontró ningún usuario en la base de datos.";
                 return View();
             }
@@ -160,8 +158,14 @@ namespace AppCajero.Controllers
                 return NotFound();
             }
 
+
             if (monto <= user.Saldo)
             {
+                if (monto == 0)
+                {
+                    TempData["MensajeError"] = "El monto debe ser mayor a 0. Ingrese otro monto";
+                    return View("Retiro", user);
+                }
                 user.Saldo -= monto;
                 _context.SaveChanges();
 
