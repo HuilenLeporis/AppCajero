@@ -1,0 +1,69 @@
+﻿@model AppCajero.Models.User
+
+@{
+    ViewData["Title"] = "Retiro";
+}
+
+<!DOCTYPE html>
+<html>
+
+<body>
+
+    @if (TempData["MensajeError"] != null)
+    {
+        <p>@TempData["MensajeError"]</p>
+    }
+
+    <h3>Saldo Disponible: @Model.Saldo</h3>
+
+    <form method="post" action="@Url.Action("Aceptar", "Users")">
+        <input type="hidden" id="userId" name="userId" value="@Model.UserId" />
+        <label for="monto">Monto a retirar:</label>
+        <input type="text" id="monto" name="monto" readonly>
+
+        <!-- Agregar el teclado -->
+        <div style="margin-top: 10px;">
+            <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px;">
+                <button type="button" onclick="addNumber(1)">1</button>
+                <button type="button" onclick="addNumber(2)">2</button>
+                <button type="button" onclick="addNumber(3)">3</button>
+                <button type="button" onclick="addNumber(4)">4</button>
+                <button type="button" onclick="addNumber(5)">5</button>
+                <button type="button" onclick="addNumber(6)">6</button>
+                <button type="button" onclick="addNumber(7)">7</button>
+                <button type="button" onclick="addNumber(8)">8</button>
+                <button type="button" onclick="addNumber(9)">9</button>
+                <button type="button" onclick="addNumber(0)">0</button>
+            </div>
+        </div>
+
+        <div style="margin-top: 20px;">
+            <button type="submit">Aceptar</button>
+            <button type="button" onclick="clearInput()">Limpiar</button>
+        </div>
+    </form>
+
+    <div style="margin-top: 20px;">
+        <button onclick="window.location.href = '@Url.Action("Ingreso", "Users")'">Salir</button>
+    </div>
+
+    <script>
+        function addNumber(num) {
+            var montoInput = document.getElementById('monto');
+            montoInput.value += num;
+        }
+
+        function clearInput() {
+            var passwordInput = document.getElementById('monto');
+            passwordInput.value = '';
+        }
+    </script>
+
+    <style>
+        input[readonly] {
+            background-color: #eee;
+        }
+    </style>
+
+</body>
+</html>

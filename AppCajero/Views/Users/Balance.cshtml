@@ -1,0 +1,26 @@
+﻿@model AppCajero.Models.User
+
+@{
+    ViewData["Title"] = "Balance";
+}
+
+<!DOCTYPE html>
+<html>
+
+<body>
+    <
+    <h2>Consulta de Balance!</h2>
+
+    <p>Número de tarjeta: @Model.NroTarjeta</p>
+    <p>Fecha de Vencimiento: @Model.FechaVenc.ToString("yyyy/MM/dd")</p>
+    <p>Balance de la cuenta: @Model.Saldo</p>
+
+    <div style="margin-top: 20px;">
+        <button onclick="window.location.href = '@Url.Action("Operaciones", "Users", Model)'">Atras</button>
+    </div>
+    <div style="margin-top: 20px;">
+        <button onclick="window.location.href = '@Url.Action("Ingreso", "Users")'">Salir</button>
+    </div>
+
+</body>
+</html>

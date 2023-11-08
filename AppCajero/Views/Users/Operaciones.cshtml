@@ -1,0 +1,18 @@
+﻿@model AppCajero.Models.User
+
+@{
+    ViewData["Title"] = "Operaciones";
+}
+
+<!DOCTYPE html>
+<html>
+<body>
+    <h2>Bienvenido a la pestaña de Operaciones </h2>
+
+    <div style="margin-top: 20px;">
+        <button onclick="window.location.href = '@Url.Action("Balance", "Users", new { id = Model.UserId })'">Balance</button> 
+        <button onclick="window.location.href = '@Url.Action("Retiro", "Users", new { id = Model.UserId })'">Retiro</button> 
+        <button onclick="window.location.href = '@Url.Action("Ingreso", "Users")'">Salir</button>
+    </div>
+</body>
+</html>

@@ -1,0 +1,25 @@
+﻿@model AppCajero.Models.User
+
+@{
+    ViewData["Title"] = "Aceptar";
+}
+
+<!DOCTYPE html>
+<html>
+
+<body>
+
+    <h2>Transacción exitosa!</h2>
+
+    <p>Número de tarjeta: @Model.NroTarjeta</p>
+    <p>Fecha y hora: @DateTime.Now</p>
+    <p>Cantidad retirada: @ViewData["Monto"]</p>
+    <p>Balance de la cuenta: @Model.Saldo</p>
+
+    <div style="margin-top: 20px;">
+        <button onclick="window.location.href = '@Url.Action("Retiro", "Users", new { id = Model.UserId })'">Atrás</button>
+        <button onclick="window.location.href = '@Url.Action("Ingreso", "Users")'">Salir</button>
+    </div>
+
+</body>
+</html>

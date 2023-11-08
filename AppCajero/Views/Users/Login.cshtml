@@ -1,0 +1,58 @@
+﻿@model AppCajero.Models.User
+
+@{
+    ViewData["Title"] = "Login";
+}
+
+<h2>Bienvenido/a @Model.Username !</h2>
+
+@using (Html.BeginForm("Login", "Users", FormMethod.Post))
+{
+    <div>
+        <label>Ingrese su PIN de 4 digitos:</label>
+        <input type="text" id="passwordInput" name="password" readonly />
+        <input type="hidden" id="NroTarjetaHidden" name="NroTarjeta" value="@Model.NroTarjeta" />
+    </div>
+    <div style="margin-top: 10px;">
+        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px;">
+            <button type="button" onclick="addNumber(1)">1</button>
+            <button type="button" onclick="addNumber(2)">2</button>
+            <button type="button" onclick="addNumber(3)">3</button>
+            <button type="button" onclick="addNumber(4)">4</button>
+            <button type="button" onclick="addNumber(5)">5</button>
+            <button type="button" onclick="addNumber(6)">6</button>
+            <button type="button" onclick="addNumber(7)">7</button>
+            <button type="button" onclick="addNumber(8)">8</button>
+            <button type="button" onclick="addNumber(9)">9</button>
+            <button type="button" onclick="addNumber(0)">0</button>
+        </div>
+    </div>
+    <div style="margin-top: 10px;">
+        <button type="submit">Aceptar</button>
+        <button type="button" onclick="clearInput()">Limpiar</button>
+    </div>
+}
+
+<div style="margin-top: 10px;">
+<button onclick="window.location.href = '@Url.Action("Ingreso", "Users")'">Salir</button>
+</div>
+
+<script>
+    function addNumber(number) {
+        var passwordInput = document.getElementById('passwordInput');
+        if (passwordInput.value.length < 4) {
+            passwordInput.value += number;
+        }
+    }
+
+    function clearInput() {
+        var passwordInput = document.getElementById('passwordInput');
+        passwordInput.value = '';
+    }
+</script>
+
+
+@if (ViewData["ErrorMessage"] != null)
+{
+    <p>@ViewData["ErrorMessage"]</p>
+}

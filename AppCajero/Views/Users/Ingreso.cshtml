@@ -1,0 +1,75 @@
+﻿@{
+    ViewData["Title"] = "Ingreso";
+}
+
+
+<body>
+    <h2>Bienvenido al Cajero automático </h2>
+
+    @using (Html.BeginForm("Ingreso", "Users", FormMethod.Post))
+    {
+        <div class="input-container">
+            <label>Ingrese su número de tarjeta:</label>
+            <input type="text" id="NroTarjetaInput" name="NroTarjeta" readonly onkeyup="formatCardNumber()" />
+        </div>
+
+        <div style="margin-top: 10px;">
+            <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px;">
+                <button type="button" onclick="addNumber(1)">1</button>
+                <button type="button" onclick="addNumber(2)">2</button>
+                <button type="button" onclick="addNumber(3)">3</button>
+                <button type="button" onclick="addNumber(4)">4</button>
+                <button type="button" onclick="addNumber(5)">5</button>
+                <button type="button" onclick="addNumber(6)">6</button>
+                <button type="button" onclick="addNumber(7)">7</button>
+                <button type="button" onclick="addNumber(8)">8</button>
+                <button type="button" onclick="addNumber(9)">9</button>
+                <button type="button" onclick="addNumber(0)">0</button>
+            </div>
+        </div>
+
+        <div class="action-buttons" style="margin-top: 10px;">
+            <input type="submit" value="Aceptar" class="submit-button" />
+            <button type="button" onclick="clearInput()">Limpiar</button>
+        </div>
+    }
+
+    <script>
+        function formatCardNumber() {
+            var NroTarjetaInput = document.getElementById('NroTarjetaInput');
+            var trimmedValue = NroTarjetaInput.value.replace(/-/g, ''); // Elimina guiones existentes
+            var formattedNumber = '';
+            for (var i = 0; i < trimmedValue.length; i++) {
+                if (i > 0 && i % 4 === 0) {
+                    formattedNumber += '-';
+                }
+                formattedNumber += trimmedValue[i];
+            }
+            NroTarjetaInput.value = formattedNumber;
+        }
+
+        function addNumber(number) {
+            var NroTarjetaInput = document.getElementById('NroTarjetaInput');
+            if (NroTarjetaInput.value.replace(/-/g, '').length < 16) {
+                NroTarjetaInput.value += number;
+                formatCardNumber();
+            }
+        }
+
+        function clearInput() {
+            var NroTarjetaInput = document.getElementById('NroTarjetaInput');
+            NroTarjetaInput.value = '';
+        }
+
+        // Elimina los guiones antes de enviar el formulario
+        document.querySelector("form").addEventListener("submit", function () {
+            var NroTarjetaInput = document.getElementById('NroTarjetaInput');
+            NroTarjetaInput.value = NroTarjetaInput.value.replace(/-/g, '');
+        });
+    </script>
+</body>
+
+@if (ViewData["ErrorMessage"] != null)
+{
+    <p>@ViewData["ErrorMessage"]</p>
+}

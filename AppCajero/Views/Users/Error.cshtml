@@ -1,0 +1,14 @@
+﻿@model AppCajero.Models.User
+
+@{
+    ViewData["Title"] = "ErrorLogin";
+}
+
+@if (ViewData["ErrorMessage"] != null)
+{
+    <p>@ViewData["ErrorMessage"]</p>
+}
+
+<div style="margin-top: 20px;">
+    <button onclick="window.location.href = '@Url.Action("Login", "Users", Model)'">Atras</button>
+</div>
